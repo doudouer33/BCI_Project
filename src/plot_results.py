@@ -1,4 +1,4 @@
-"""Generate the Phase A waveform, class-count and Welch PSD figures."""
+"""Generate EEG data and classification results figures."""
 
 import matplotlib
 
@@ -6,7 +6,9 @@ matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import PercentFormatter
 from scipy.signal import welch
+from sklearn.metrics import ConfusionMatrixDisplay
 
 
 CLASS_NAMES = {
@@ -80,4 +82,36 @@ def plot_class_distribution(manifest, config, figure_dir):
     ax.grid(axis="y", alpha=0.22)
     ax.set_axisbelow(True)
     fig.savefig(figure_dir / "class_distribution.png", dpi=150)
+    plt.close(fig)
+
+
+def plot_baseline_accuracy(metrics, figure_dir):
+    accuracy = metrics.pivot(index="subject", columns="model", values="accuracy")
+    positions = np.arange(len(accuracy))
+    width = 0.36
+    fig, ax = plt.subplots(figsize=(9, 4.5), layout="constrained")
+    for model, offset, color in zip(accuracy.columns, (-width / 2, width / 2), COLORS):
+        ax.bar(positions + offset, accuracy[model], width, label=model.replace("_", " + "), color=color)
+    ax.set(title="Cross-session test accuracy by subject", xlabel="Subject", ylabel="Accuracy",
+           xticks=positions, xticklabels=accuracy.index, ylim=(0, 1))
+    ax.yaxis.set_major_formatter(PercentFormatter(xmax=1))
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncols=2, frameon=False)
+    ax.grid(axis="y", alpha=0.22)
+    ax.set_axisbelow(True)
+    fig.savefig(figure_dir / "csp_accuracy.png", dpi=150)
+    plt.close(fig)
+
+
+def plot_baseline_confusion(subject, matrices, class_order, figure_dir):
+    labels = [CLASS_NAMES[name] for name in class_order]
+    maximum = max(np.max(matrix) for matrix in matrices.values())
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4.5), layout="constrained")
+    fig.suptitle(f"Subject {subject} · Test confusion matrices")
+    for ax, (model, matrix) in zip(axes, matrices.items()):
+        display = ConfusionMatrixDisplay(np.asarray(matrix), display_labels=labels)
+        display.plot(ax=ax, colorbar=False, cmap="Blues", values_format="d",
+                     xticks_rotation=25, im_kw={"vmin": 0, "vmax": maximum})
+        ax.set_title(model.replace("_", " + "))
+    fig.colorbar(display.im_, ax=axes, label="Trials", shrink=0.8)
+    fig.savefig(figure_dir / f"csp_confusion_s{subject}.png", dpi=150)
     plt.close(fig)

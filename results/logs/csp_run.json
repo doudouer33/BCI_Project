@@ -1,0 +1,1817 @@
+{
+  "command": ".venv/bin/python -m src.train_csp --config configs/experiment.yaml --output-dir results",
+  "config": {
+    "dataset": "BNCI2014_001",
+    "data_dir": "data/raw",
+    "subjects": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "label_mapping": {
+      "left_hand": 0,
+      "right_hand": 1,
+      "feet": 2,
+      "tongue": 3
+    },
+    "sfreq": 250.0,
+    "fmin": 8.0,
+    "fmax": 30.0,
+    "filter": {
+      "method": "fir",
+      "phase": "zero",
+      "fir_window": "hamming",
+      "fir_design": "firwin",
+      "l_trans_bandwidth": 2.0,
+      "h_trans_bandwidth": 7.5,
+      "pad": "reflect_limited"
+    },
+    "cue_offset_from_trial_start_s": 2.0,
+    "tmin": 0.0,
+    "tmax": 4.0,
+    "train_session": "0train",
+    "test_session": "1test",
+    "val_ratio": 0.2,
+    "random_seed": 42,
+    "csp": {
+      "n_components": [
+        8,
+        4,
+        12
+      ],
+      "svm_kernels": [
+        "linear",
+        "rbf"
+      ],
+      "svm_c": [
+        1.0,
+        10.0
+      ]
+    }
+  },
+  "subjects": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "confusion_matrix_class_order": [
+    "left_hand",
+    "right_hand",
+    "feet",
+    "tongue"
+  ],
+  "versions": {
+    "python": "3.12.3",
+    "moabb": "1.7.2",
+    "mne": "1.13.2",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "pyyaml": "6.0.3",
+    "threadpoolctl": "3.8.0"
+  },
+  "results": [
+    {
+      "subject": 1,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 12
+        },
+        "val_macro_f1": 0.6822021116138763
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.6018736383442266
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.631123470522803
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.6822021116138763
+        }
+      ],
+      "confusion_matrix": [
+        [
+          63,
+          2,
+          2,
+          5
+        ],
+        [
+          31,
+          34,
+          6,
+          1
+        ],
+        [
+          2,
+          0,
+          45,
+          25
+        ],
+        [
+          2,
+          0,
+          15,
+          55
+        ]
+      ]
+    },
+    {
+      "subject": 1,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 4,
+          "kernel": "rbf",
+          "C": 1.0
+        },
+        "val_macro_f1": 0.7746702968477163
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7605474336564437
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6706730769230769
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7240224180713613
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6716722284019281
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7205837583861778
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7205837583861778
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7746702968477163
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7156885234330886
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7066912972085386
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6732861247947455
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6037766830870279
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7067323481116585
+        }
+      ],
+      "confusion_matrix": [
+        [
+          64,
+          0,
+          3,
+          5
+        ],
+        [
+          29,
+          33,
+          10,
+          0
+        ],
+        [
+          3,
+          0,
+          25,
+          44
+        ],
+        [
+          2,
+          0,
+          2,
+          68
+        ]
+      ]
+    },
+    {
+      "subject": 2,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 8
+        },
+        "val_macro_f1": 0.6550267060229109
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.6550267060229109
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.5081387877489827
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.5648582600195503
+        }
+      ],
+      "confusion_matrix": [
+        [
+          10,
+          20,
+          22,
+          20
+        ],
+        [
+          6,
+          29,
+          19,
+          18
+        ],
+        [
+          0,
+          1,
+          71,
+          0
+        ],
+        [
+          2,
+          5,
+          21,
+          44
+        ]
+      ]
+    },
+    {
+      "subject": 2,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 8,
+          "kernel": "linear",
+          "C": 1.0
+        },
+        "val_macro_f1": 0.6022107118709553
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6022107118709553
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.5716318785578748
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.5902373488580385
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.5412537774966617
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.5118007662835249
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.5022943722943722
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.48955026455026457
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.45022246941045607
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.5047898338220919
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.501179266326816
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.5095064866760168
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.45704282130912566
+        }
+      ],
+      "confusion_matrix": [
+        [
+          7,
+          28,
+          22,
+          15
+        ],
+        [
+          5,
+          32,
+          23,
+          12
+        ],
+        [
+          0,
+          2,
+          69,
+          1
+        ],
+        [
+          3,
+          8,
+          22,
+          39
+        ]
+      ]
+    },
+    {
+      "subject": 3,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 8
+        },
+        "val_macro_f1": 0.8631094918810436
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.8631094918810436
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.7318274318274318
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.8453201970443349
+        }
+      ],
+      "confusion_matrix": [
+        [
+          46,
+          12,
+          0,
+          14
+        ],
+        [
+          0,
+          72,
+          0,
+          0
+        ],
+        [
+          2,
+          4,
+          19,
+          47
+        ],
+        [
+          1,
+          2,
+          4,
+          65
+        ]
+      ]
+    },
+    {
+      "subject": 3,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 12,
+          "kernel": "rbf",
+          "C": 10.0
+        },
+        "val_macro_f1": 0.8799404618370136
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.8458914463363851
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.81100017067759
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.8648786717752235
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.829912734324499
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6946778711484594
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.692274463572638
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7092857142857143
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6763089851325145
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.8282051282051283
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.8117702061667579
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.8473341473341474
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.8799404618370136
+        }
+      ],
+      "confusion_matrix": [
+        [
+          46,
+          11,
+          10,
+          5
+        ],
+        [
+          3,
+          64,
+          2,
+          3
+        ],
+        [
+          7,
+          1,
+          34,
+          30
+        ],
+        [
+          14,
+          5,
+          13,
+          40
+        ]
+      ]
+    },
+    {
+      "subject": 4,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 12
+        },
+        "val_macro_f1": 0.6371410847217299
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.5867570926838168
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.4332725464190981
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.6371410847217299
+        }
+      ],
+      "confusion_matrix": [
+        [
+          9,
+          45,
+          16,
+          2
+        ],
+        [
+          1,
+          68,
+          2,
+          1
+        ],
+        [
+          1,
+          6,
+          40,
+          25
+        ],
+        [
+          0,
+          15,
+          5,
+          52
+        ]
+      ]
+    },
+    {
+      "subject": 4,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 12,
+          "kernel": "rbf",
+          "C": 10.0
+        },
+        "val_macro_f1": 0.5976263265162696
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.5821960297766748
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.5512820512820512
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.5526775782615605
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.46163003663003666
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.3989583333333333
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.4158529102384292
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.4497596153846154
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.400039184952978
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.5798148148148148
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.5398268398268398
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.5690067152803526
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.5976263265162696
+        }
+      ],
+      "confusion_matrix": [
+        [
+          13,
+          43,
+          13,
+          3
+        ],
+        [
+          5,
+          57,
+          8,
+          2
+        ],
+        [
+          4,
+          12,
+          40,
+          16
+        ],
+        [
+          2,
+          29,
+          11,
+          30
+        ]
+      ]
+    },
+    {
+      "subject": 5,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 12
+        },
+        "val_macro_f1": 0.4223699095022625
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.3630555555555556
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.3473389355742297
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.4223699095022625
+        }
+      ],
+      "confusion_matrix": [
+        [
+          4,
+          6,
+          54,
+          8
+        ],
+        [
+          2,
+          14,
+          48,
+          8
+        ],
+        [
+          0,
+          3,
+          60,
+          9
+        ],
+        [
+          1,
+          3,
+          39,
+          29
+        ]
+      ]
+    },
+    {
+      "subject": 5,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 12,
+          "kernel": "linear",
+          "C": 10.0
+        },
+        "val_macro_f1": 0.43307790549169867
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.3614015572858732
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.3998701298701299
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.400503663003663
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.365327380952381
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.4054982517482517
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.3785159285159285
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.3464633398941624
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.3984683794466403
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.3993464052287582
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.43307790549169867
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.41749455337690633
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.4138257687366672
+        }
+      ],
+      "confusion_matrix": [
+        [
+          5,
+          6,
+          59,
+          2
+        ],
+        [
+          1,
+          7,
+          60,
+          4
+        ],
+        [
+          0,
+          2,
+          68,
+          2
+        ],
+        [
+          1,
+          0,
+          60,
+          11
+        ]
+      ]
+    },
+    {
+      "subject": 6,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 8
+        },
+        "val_macro_f1": 0.48237547892720306
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.48237547892720306
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.4577311577311577
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.4451149425287356
+        }
+      ],
+      "confusion_matrix": [
+        [
+          49,
+          3,
+          16,
+          4
+        ],
+        [
+          23,
+          15,
+          26,
+          8
+        ],
+        [
+          21,
+          2,
+          45,
+          4
+        ],
+        [
+          26,
+          6,
+          16,
+          24
+        ]
+      ]
+    },
+    {
+      "subject": 6,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 8,
+          "kernel": "rbf",
+          "C": 1.0
+        },
+        "val_macro_f1": 0.49843986195487866
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.46693861693861693
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.4832417582417583
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.49843986195487866
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.4820512820512821
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.4906772466039707
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.4906772466039707
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.4898518655110947
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.46124286341677645
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.4638888888888889
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.4297453703703703
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.39571759259259254
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.41541073868660083
+        }
+      ],
+      "confusion_matrix": [
+        [
+          49,
+          3,
+          17,
+          3
+        ],
+        [
+          22,
+          14,
+          33,
+          3
+        ],
+        [
+          23,
+          0,
+          45,
+          4
+        ],
+        [
+          31,
+          3,
+          23,
+          15
+        ]
+      ]
+    },
+    {
+      "subject": 7,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 12
+        },
+        "val_macro_f1": 0.8052164502164503
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.7896140896140897
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.7026364764267989
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.8052164502164503
+        }
+      ],
+      "confusion_matrix": [
+        [
+          5,
+          50,
+          5,
+          12
+        ],
+        [
+          0,
+          62,
+          2,
+          8
+        ],
+        [
+          0,
+          0,
+          34,
+          38
+        ],
+        [
+          0,
+          0,
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "subject": 7,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 8,
+          "kernel": "linear",
+          "C": 1.0
+        },
+        "val_macro_f1": 0.7919660967835409
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7919660967835409
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7537996336170778
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7723214285714286
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6817690524485656
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7205128205128204
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7033205619412515
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7177083333333334
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7356094000875784
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.771064527616947
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7751231527093596
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7552318052318052
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7705604953588825
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1,
+          51,
+          1,
+          19
+        ],
+        [
+          0,
+          55,
+          0,
+          17
+        ],
+        [
+          0,
+          0,
+          12,
+          60
+        ],
+        [
+          0,
+          0,
+          0,
+          72
+        ]
+      ]
+    },
+    {
+      "subject": 8,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 8
+        },
+        "val_macro_f1": 0.7947513698347959
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.7947513698347959
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.7053292832491943
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.7941707717569787
+        }
+      ],
+      "confusion_matrix": [
+        [
+          57,
+          1,
+          14,
+          0
+        ],
+        [
+          2,
+          59,
+          9,
+          2
+        ],
+        [
+          2,
+          2,
+          68,
+          0
+        ],
+        [
+          9,
+          8,
+          18,
+          37
+        ]
+      ]
+    },
+    {
+      "subject": 8,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 8,
+          "kernel": "linear",
+          "C": 1.0
+        },
+        "val_macro_f1": 0.7923234811165846
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7923234811165846
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7769704433497537
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7376639962846859
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7238095238095238
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6696535244922341
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6489351851851852
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7053342490842491
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7051296082949309
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7608784893267653
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7614532019704434
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.7589901477832512
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.7310621725944306
+        }
+      ],
+      "confusion_matrix": [
+        [
+          53,
+          0,
+          19,
+          0
+        ],
+        [
+          3,
+          53,
+          15,
+          1
+        ],
+        [
+          3,
+          1,
+          68,
+          0
+        ],
+        [
+          14,
+          7,
+          18,
+          33
+        ]
+      ]
+    },
+    {
+      "subject": 9,
+      "model": "CSP_LDA",
+      "selected": {
+        "params": {
+          "n_components": 12
+        },
+        "val_macro_f1": 0.7292443064182195
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8
+          },
+          "val_macro_f1": 0.64498874044759
+        },
+        {
+          "params": {
+            "n_components": 4
+          },
+          "val_macro_f1": 0.6338359915946123
+        },
+        {
+          "params": {
+            "n_components": 12
+          },
+          "val_macro_f1": 0.7292443064182195
+        }
+      ],
+      "confusion_matrix": [
+        [
+          69,
+          3,
+          0,
+          0
+        ],
+        [
+          20,
+          26,
+          18,
+          8
+        ],
+        [
+          8,
+          2,
+          57,
+          5
+        ],
+        [
+          3,
+          0,
+          6,
+          63
+        ]
+      ]
+    },
+    {
+      "subject": 9,
+      "model": "CSP_SVM",
+      "selected": {
+        "params": {
+          "n_components": 4,
+          "kernel": "linear",
+          "C": 10.0
+        },
+        "val_macro_f1": 0.696998371998372
+      },
+      "validation_scores": [
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6155769230769231
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6307317073170732
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6444777888217754
+        },
+        {
+          "params": {
+            "n_components": 8,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6446723646723647
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6923076923076923
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.696998371998372
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6684316394434362
+        },
+        {
+          "params": {
+            "n_components": 4,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.5701256514599843
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.6925037481259371
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "linear",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.5997610113463772
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 1.0
+          },
+          "val_macro_f1": 0.674047619047619
+        },
+        {
+          "params": {
+            "n_components": 12,
+            "kernel": "rbf",
+            "C": 10.0
+          },
+          "val_macro_f1": 0.6602369546933851
+        }
+      ],
+      "confusion_matrix": [
+        [
+          65,
+          2,
+          5,
+          0
+        ],
+        [
+          5,
+          19,
+          34,
+          14
+        ],
+        [
+          7,
+          11,
+          32,
+          22
+        ],
+        [
+          0,
+          0,
+          4,
+          68
+        ]
+      ]
+    }
+  ]
+}

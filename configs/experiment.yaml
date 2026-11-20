@@ -25,3 +25,7 @@ train_session: 0train
 test_session: 1test
 val_ratio: 0.2
 random_seed: 42
+csp:
+  n_components: [8, 4, 12]
+  svm_kernels: [linear, rbf]
+  svm_c: [1.0, 10.0]
