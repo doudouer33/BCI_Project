@@ -288,6 +288,8 @@ csp_components: 8
 
 **验收**：9 人 EEGNet 真实结果；至少一张训练/验证损失曲线；实验配置、随机种子和必要训练日志齐全。
 
+**补充实验进度**　逐通道 Z-score 与完整训练 Session Refit 的 9 人探索性对照已完成。 [实验结果](results/eegnet_ablation/summary.csv)
+
 ### 阶段 D：轻量 Transformer（P1，选做）
 
 **实施**

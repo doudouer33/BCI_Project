@@ -1,0 +1,315 @@
+{
+  "command": ".venv/bin/python -m src.train_eegnet_ablation --subjects 1 --device cuda",
+  "config": {
+    "dataset": "BNCI2014_001",
+    "data_dir": "data/raw",
+    "subjects": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "label_mapping": {
+      "left_hand": 0,
+      "right_hand": 1,
+      "feet": 2,
+      "tongue": 3
+    },
+    "sfreq": 250.0,
+    "fmin": 8.0,
+    "fmax": 30.0,
+    "filter": {
+      "method": "fir",
+      "phase": "zero",
+      "fir_window": "hamming",
+      "fir_design": "firwin",
+      "l_trans_bandwidth": 2.0,
+      "h_trans_bandwidth": 7.5,
+      "pad": "reflect_limited"
+    },
+    "cue_offset_from_trial_start_s": 2.0,
+    "tmin": 0.0,
+    "tmax": 4.0,
+    "train_session": "0train",
+    "test_session": "1test",
+    "val_ratio": 0.2,
+    "random_seed": 42,
+    "csp": {
+      "n_components": [
+        8,
+        4,
+        12
+      ],
+      "svm_kernels": [
+        "linear",
+        "rbf"
+      ],
+      "svm_c": [
+        1.0,
+        10.0
+      ]
+    },
+    "eegnet": {
+      "batch_size": 32,
+      "learning_rate": 0.001,
+      "max_epochs": 100,
+      "patience": 15
+    }
+  },
+  "ablation": {
+    "experiment_config": "experiment.yaml",
+    "zscore_epsilon_uv": 1e-06
+  },
+  "subjects": [
+    1
+  ],
+  "baseline_metrics": "results/eegnet_metrics.csv",
+  "baseline_run": "results/logs/eegnet_run.json",
+  "split_manifest": "results/trial_splits.csv",
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.13.0+cu130",
+    "torchaudio": "2.11.0+cu130",
+    "braindecode": "2.0.0",
+    "moabb": "1.7.2",
+    "mne": "1.13.2",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "pyyaml": "6.0.3"
+  },
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "cuda": "13.0",
+  "cudnn": 92000,
+  "deterministic_algorithms": true,
+  "torch_cpu_threads": 4,
+  "optimizer": "Adam",
+  "loss": "CrossEntropyLoss",
+  "selection": "minimum validation loss, earliest epoch on ties",
+  "refit": "fresh model and Adam at the original seed, fixed epochs on all of 0train",
+  "class_order": [
+    "left_hand",
+    "right_hand",
+    "feet",
+    "tongue"
+  ],
+  "results": [
+    {
+      "subject": 1,
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "sfreq": 250.0,
+        "n_outputs": 4,
+        "final_layer_with_constraint": true
+      },
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "zscore_train": {
+        "n_trials": 230,
+        "mean_uv": [
+          -0.0031104074266716645,
+          -0.003478302194674972,
+          -0.003292061624198277,
+          -0.0023278387308700126,
+          -0.003102808574523326,
+          -0.0026853058566447614,
+          -0.0034704484904693415,
+          -0.0037847565719272783,
+          -0.003540784388467438,
+          -0.0027004396089577672,
+          -0.003261533925756695,
+          -0.0023956086856668684,
+          -0.001640191641462898,
+          -0.00416890267238992,
+          -0.0039936162641692075,
+          -0.00320215992585626,
+          -0.0034681696638895632,
+          -0.0027581547499661526,
+          -0.004541873925718911,
+          -0.0042165684774608005,
+          -0.0035518757957349635,
+          -0.004457936707292576
+        ],
+        "std_uv": [
+          5.422016818604987,
+          5.134488810645905,
+          5.537888358460256,
+          5.7569458829411175,
+          5.568852531313785,
+          5.3257839381062295,
+          4.268689724467592,
+          5.011260185015072,
+          5.319169453302851,
+          5.62495479711048,
+          5.463065990160602,
+          5.399731170909495,
+          4.957784870899793,
+          5.376813484541555,
+          5.359027605518378,
+          5.506003235126701,
+          5.485556720843036,
+          5.701125605888922,
+          5.595511677303622,
+          5.693977181228576,
+          5.738450757773627,
+          5.882174345941906
+        ],
+        "epsilon_uv": 1e-06
+      },
+      "zscore_full_train": {
+        "n_trials": 288,
+        "mean_uv": [
+          -0.0029824040257235354,
+          -0.0033560718005086975,
+          -0.0033082545843938277,
+          -0.002388747506041707,
+          -0.0028433116293838678,
+          -0.0024960960368598643,
+          -0.003212217327878671,
+          -0.0036873168805762737,
+          -0.0035828641452542043,
+          -0.0027437882386749644,
+          -0.002877321884822881,
+          -0.0020716252612019252,
+          -0.0018503490668706909,
+          -0.004261274788119598,
+          -0.004108757804918003,
+          -0.0032596662321510927,
+          -0.00316941838849527,
+          -0.002521006869634416,
+          -0.00474283271806593,
+          -0.004334522597010852,
+          -0.0035062061145393945,
+          -0.004606698730729598
+        ],
+        "std_uv": [
+          5.452693111367471,
+          5.159952478100681,
+          5.568880835867891,
+          5.783392219757215,
+          5.591854403482122,
+          5.347914041871891,
+          4.269703400674236,
+          5.01677042002336,
+          5.328608832805123,
+          5.637996995469652,
+          5.471990767033781,
+          5.4002394464946795,
+          4.953610904408245,
+          5.366648322997793,
+          5.351509660015541,
+          5.503102771999099,
+          5.477882029338259,
+          5.685857481750233,
+          5.592059647062367,
+          5.694591620070215,
+          5.734574065574405,
+          5.903375833093975
+        ],
+        "epsilon_uv": 1e-06
+      },
+      "raw_best_epoch": 13,
+      "zscore_selection": {
+        "best_epoch": 11,
+        "best_val_loss": 1.340521187617861,
+        "epochs_run": 26,
+        "stopped_early": true,
+        "first_training_batch": {
+          "input_shape": [
+            32,
+            22,
+            1000
+          ],
+          "input_dtype": "torch.float32",
+          "target_shape": [
+            32
+          ],
+          "target_dtype": "torch.int64",
+          "logits_shape": [
+            32,
+            4
+          ],
+          "loss": 1.3897426128387451,
+          "temporal_weight_grad_norm": 0.1661716252565384,
+          "optimizer_update": true
+        }
+      },
+      "refit_first_batches": {
+        "Refit": {
+          "input_shape": [
+            32,
+            22,
+            1000
+          ],
+          "input_dtype": "torch.float32",
+          "target_shape": [
+            32
+          ],
+          "target_dtype": "torch.int64",
+          "logits_shape": [
+            32,
+            4
+          ],
+          "loss": 1.4045281410217285,
+          "temporal_weight_grad_norm": 0.1349296271800995,
+          "optimizer_update": true
+        },
+        "Z-score + Refit": {
+          "input_shape": [
+            32,
+            22,
+            1000
+          ],
+          "input_dtype": "torch.float32",
+          "target_shape": [
+            32
+          ],
+          "target_dtype": "torch.int64",
+          "logits_shape": [
+            32,
+            4
+          ],
+          "loss": 1.405015230178833,
+          "temporal_weight_grad_norm": 0.13757984340190887,
+          "optimizer_update": true
+        }
+      }
+    }
+  ]
+}

@@ -194,3 +194,61 @@ python -m src.train_eegnet
 EEGNet 在 Subject 3 和 9 上的 Accuracy 与 Macro-F1 均超过两条 CSP 基线，在其余 7 人上均低于两条基线。其平均 Accuracy 分别比 CSP + LDA 和 CSP + SVM 低 15.78 和 9.45 个百分点，受试者之间的波动也更大。
 
 7 名受试者触发早停，Subject 3 和 9 达到 100 轮。Subject 1 从最佳轮次到停止时，训练 Loss 由 0.876 降至 0.618，验证 Loss 由 1.219 升至 1.336，呈现过拟合迹象。测试时有 63 个左手试次被判为右手，右手共占 183 个预测（63.54%），反映出该受试者的类别预测偏向。每人有限的训练样本与跨 Session 信号变化都可能影响泛化。
+
+## 阶段 C 补充实验：EEGNet 标准化与 Refit
+
+原始 EEGNet 在部分受试者上出现训练 Loss 下降、验证 Loss 回升的现象。本实验检查两项改动能否改善跨 Session 表现，即消除不同通道的总体幅值差异，以及在验证集选定训练轮次后，让全部训练 Session 试次参与参数更新。
+
+| 实验 | 模型输入 | 最终训练方式 |
+| --- | --- | --- |
+| Baseline | µV | 复用原始 230 试次训练的最佳验证模型及其已保存结果 |
+| Z-score | 由 230 个训练试次拟合的逐通道 Z-score | 230 个试次训练，恢复验证 Loss 最低的 checkpoint |
+| Refit | µV | 全部 288 个 `0train` 试次，训练到原始日志中的最佳轮次 |
+| Z-score + Refit | 由全部 288 个 `0train` 试次拟合的逐通道 Z-score | 全部 288 个试次，训练到 Z-score 组在 230/58 划分上选定的最佳轮次 |
+
+共享数据加载器和试次清单锁定原有 `230 / 58 / 288` 划分，模型结构和训练配置沿用阶段 C。Z-score 先将 V 转成 µV，对每个通道沿试次和时间轴以 `float64` 计算总体均值和标准差，再应用 `(X − mean) / (std + 1e-6)`。模型输入为无量纲 `float32`，加载器会检查 NaN 和 Inf。Z-score 选轮次时，训练、验证及该组测试均使用 230 个训练试次的统计量。组合组的重新训练和最终测试均使用 288 个 `0train` 试次重新拟合的统计量。
+
+两种 Refit 都从种子 `42` 重新初始化 EEGNet、Adam 和训练批次顺序，每轮遍历完整 `0train`，按选定的轮数结束。选轮次仍使用原有最低验证 Loss 规则和 15 轮耐心值。三个新增组均完成训练后才评估该受试者的 `1test`。历史实验已经评估过同一个测试 Session，以下比较属于探索性结果。配置在运行前固定。
+
+使用阶段 C 的环境，在仓库根目录运行。
+
+```bash
+# Subject 1 验证，输出到 results/eegnet_ablation/subject_1/
+.venv/bin/python -m src.train_eegnet_ablation --subjects 1 --device cuda
+
+# 正式九人对照，输出到 results/eegnet_ablation/
+.venv/bin/python -m src.train_eegnet_ablation --device cuda
+```
+
+新增脚本和独立配置复用原始训练循环及共享实验协议。正式运行沿用阶段 C 的 RTX 4090、PyTorch `2.13.0+cu130` 和 Braindecode `2.0.0`。 [训练脚本](src/train_eegnet_ablation.py) · [补充实验配置](configs/eegnet_ablation.yaml)
+
+四组逐人指标包含最佳轮次、选轮阶段实际轮数和 Refit 实际轮数。运行日志保存有效配置、种子、逐通道统计量和首批更新检查。Z-score 组保存每人的训练及验证曲线和逐轮记录。两种 Refit 保存逐轮训练日志和逐试次预测。 [逐人指标](results/eegnet_ablation/metrics.csv) · [四组汇总](results/eegnet_ablation/summary.csv) · [预测目录](results/eegnet_ablation/predictions/) · [运行日志](results/eegnet_ablation/logs/run.json) · [Subject 1 的 Z-score 曲线](results/eegnet_ablation/figures/eegnet_training_s1.png) · [平均 Accuracy 对比图](results/eegnet_ablation/figures/mean_accuracy.png)
+
+### 九人对照结果
+
+每个单元格依次为测试 Accuracy 和 Macro-F1，均以百分比表示。
+
+| Subject | Baseline | Z-score | Refit | Z-score + Refit |
+| ---: | ---: | ---: | ---: | ---: |
+| 1 | 40.97% / 34.65% | 25.69% / 11.62% | 31.25% / 22.50% | 25.35% / 10.92% |
+| 2 | 26.04% / 17.80% | 25.35% / 19.81% | 28.47% / 18.68% | 27.08% / 22.85% |
+| 3 | 87.85% / 87.64% | 25.00% / 10.00% | 86.81% / 86.35% | 25.35% / 13.87% |
+| 4 | 38.54% / 38.03% | 34.38% / 31.89% | 42.01% / 38.66% | 39.58% / 36.22% |
+| 5 | 26.74% / 20.11% | 30.21% / 25.90% | 24.65% / 15.06% | 25.69% / 12.44% |
+| 6 | 38.54% / 36.89% | 37.85% / 36.48% | 27.78% / 22.46% | 30.21% / 24.92% |
+| 7 | 36.81% / 35.15% | 30.56% / 24.68% | 26.04% / 12.34% | 25.00% / 10.08% |
+| 8 | 28.82% / 22.76% | 25.00% / 12.01% | 26.74% / 15.28% | 25.35% / 11.45% |
+| 9 | 78.82% / 78.79% | 76.04% / 75.58% | 79.51% / 79.15% | 80.56% / 80.79% |
+
+下表按受试者等权计算。均值以百分比表示，标准差及变化量以百分点表示，总体标准差使用 `ddof=0`。
+
+| 实验 | Accuracy 均值 ± 标准差 | Macro-F1 均值 ± 标准差 | Accuracy 相对 Baseline 变化 | Macro-F1 相对 Baseline 变化 |
+| --- | ---: | ---: | ---: | ---: |
+| Baseline | 44.79 ± 21.35 | 41.31 ± 23.59 | 0.00 | 0.00 |
+| Z-score | 34.45 ± 15.32 | 27.55 ± 19.09 | −10.34 | −13.76 |
+| Refit | 41.47 ± 22.86 | 34.50 ± 26.83 | −3.32 | −6.82 |
+| Z-score + Refit | 33.80 ± 17.11 | 24.84 ± 21.42 | −11.00 | −16.48 |
+
+Refit 单独使用时，Subject 2、4 和 9 的两项指标有所提升，九人均值均下降。在 Z-score 基础上加入 Refit 后，平均 Accuracy 和 Macro-F1 又分别下降 0.66 和 2.71 个百分点。固定 Epoch 数时，每轮的梯度更新次数随训练集规模从 8 批增至 9 批，Refit 的差异包含样本数和更新次数的共同变化。
+
+Z-score 组选轮阶段有 8 人触发早停。Subject 1 从最佳第 11 轮到停止的第 26 轮，训练 Loss 从 0.959 降至 0.646，验证 Loss 从 1.341 升至 1.434，仍有过拟合迹象。Subject 3 在 Z-score 组把 288 个测试试次全部预测成左手，Accuracy 为 25.00%，Macro-F1 为 10.00%。检查中未出现 NaN、Inf 或失败的参数更新。以上观察来自单一种子和同一测试 Session。

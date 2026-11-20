@@ -1,0 +1,4 @@
+# Shared protocol and training settings, relative to this file.
+experiment_config: experiment.yaml
+# Per-channel standard deviation is in microvolts.
+zscore_epsilon_uv: 1.0e-6
