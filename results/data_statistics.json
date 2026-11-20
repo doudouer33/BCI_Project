@@ -1,0 +1,3335 @@
+{
+  "config": {
+    "dataset": "BNCI2014_001",
+    "data_dir": "data/raw",
+    "subjects": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "label_mapping": {
+      "left_hand": 0,
+      "right_hand": 1,
+      "feet": 2,
+      "tongue": 3
+    },
+    "sfreq": 250.0,
+    "fmin": 8.0,
+    "fmax": 30.0,
+    "filter": {
+      "method": "fir",
+      "phase": "zero",
+      "fir_window": "hamming",
+      "fir_design": "firwin",
+      "l_trans_bandwidth": 2.0,
+      "h_trans_bandwidth": 7.5,
+      "pad": "reflect_limited"
+    },
+    "cue_offset_from_trial_start_s": 2.0,
+    "tmin": 0.0,
+    "tmax": 4.0,
+    "train_session": "0train",
+    "test_session": "1test",
+    "val_ratio": 0.2,
+    "random_seed": 42
+  },
+  "versions": {
+    "python": "3.12.3",
+    "moabb": "1.7.2",
+    "mne": "1.13.2",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "pyyaml": "6.0.3"
+  },
+  "n_subjects": 9,
+  "n_trials": 5184,
+  "class_counts": {
+    "tongue": 1296,
+    "feet": 1296,
+    "right_hand": 1296,
+    "left_hand": 1296
+  },
+  "split_counts": {
+    "test": 2592,
+    "train": 2070,
+    "val": 522
+  },
+  "subjects": [
+    {
+      "subject": 1,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    },
+    {
+      "subject": 2,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 8,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    },
+    {
+      "subject": 3,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 7,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    },
+    {
+      "subject": 4,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 6,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 9,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 13,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 11,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 12,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 8,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 12,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    },
+    {
+      "subject": 5,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 7,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 7,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 6,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 6,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    },
+    {
+      "subject": 6,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 15,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 13,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 10,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 7,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 19,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 8,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 20,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 22,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 14,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    },
+    {
+      "subject": 7,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 4,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 0,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 2,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    },
+    {
+      "subject": 8,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 6,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    },
+    {
+      "subject": 9,
+      "shape": [
+        576,
+        22,
+        1000
+      ],
+      "dtype": "float64",
+      "class_counts": {
+        "left_hand": 144,
+        "right_hand": 144,
+        "feet": 144,
+        "tongue": 144
+      },
+      "session_counts": {
+        "0train": 288,
+        "1test": 288
+      },
+      "split_counts": {
+        "test": 288,
+        "train": 230,
+        "val": 58
+      },
+      "split_class_counts": {
+        "test": {
+          "left_hand": 72,
+          "right_hand": 72,
+          "feet": 72,
+          "tongue": 72
+        },
+        "train": {
+          "left_hand": 57,
+          "right_hand": 58,
+          "feet": 57,
+          "tongue": 58
+        },
+        "val": {
+          "left_hand": 15,
+          "right_hand": 14,
+          "feet": 15,
+          "tongue": 14
+        }
+      },
+      "nan": 0,
+      "inf": 0,
+      "channel_names": [
+        "Fz",
+        "FC3",
+        "FC1",
+        "FCz",
+        "FC2",
+        "FC4",
+        "C5",
+        "C3",
+        "C1",
+        "Cz",
+        "C2",
+        "C4",
+        "C6",
+        "CP3",
+        "CP1",
+        "CPz",
+        "CP2",
+        "CP4",
+        "P1",
+        "Pz",
+        "P2",
+        "POz"
+      ],
+      "sfreq": 250.0,
+      "units": "V",
+      "moabb_event_codes": {
+        "left_hand": 1,
+        "right_hand": 2,
+        "feet": 3,
+        "tongue": 4
+      },
+      "moabb_interval_s": [
+        2,
+        6
+      ],
+      "first_sample_from_cue_s": 0.0,
+      "last_sample_from_cue_s": 3.996,
+      "fir_length_samples": 413,
+      "runs": [
+        {
+          "session": "0train",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 11,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 11,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 7,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 6,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 10,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "0train",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 6,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "0",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 3,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "1",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 1,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "2",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "3",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "4",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        },
+        {
+          "session": "1test",
+          "run": "5",
+          "raw_samples": 96735,
+          "trials": 48,
+          "artifact_flags": 5,
+          "raw_eeg_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "epoch_nonfinite": {
+            "nan": 0,
+            "inf": 0
+          },
+          "non_eeg_channels": {
+            "EOG1": "eog",
+            "EOG2": "eog",
+            "EOG3": "eog",
+            "STI": "stim"
+          },
+          "cue_offset_samples": 500,
+          "min_gap_between_epochs_samples": 895
+        }
+      ]
+    }
+  ]
+}

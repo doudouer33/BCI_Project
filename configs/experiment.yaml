@@ -1,0 +1,27 @@
+dataset: BNCI2014_001
+data_dir: data/raw
+subjects: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+label_mapping:
+  left_hand: 0
+  right_hand: 1
+  feet: 2
+  tongue: 3
+sfreq: 250.0
+fmin: 8.0
+fmax: 30.0
+filter:
+  method: fir
+  phase: zero
+  fir_window: hamming
+  fir_design: firwin
+  l_trans_bandwidth: 2.0
+  h_trans_bandwidth: 7.5
+  pad: reflect_limited
+# The trial-start marker precedes the cue by 2 s. tmax is exclusive.
+cue_offset_from_trial_start_s: 2.0
+tmin: 0.0
+tmax: 4.0
+train_session: 0train
+test_session: 1test
+val_ratio: 0.2
+random_seed: 42
