@@ -1,6 +1,6 @@
 # BCI Competition IV 2a 运动想象四分类
 
-阶段 A 提供 BNCI2014_001 的读取、预处理、固定划分和数据可视化。阶段 B 用同一协议实测 CSP + LDA 和 CSP + SVM 的 9 人基线。阶段 C 加入 EEGNet，并比较三种模型的跨 Session 测试结果。实验路线见 [PROJECT_PLAN.md](PROJECT_PLAN.md)，统一参数见 [configs/experiment.yaml](configs/experiment.yaml)。
+阶段 A 提供 BNCI2014_001 的读取、预处理、固定划分和数据可视化。阶段 B 用同一协议实测 CSP + LDA 和 CSP + SVM 的 9 人基线。阶段 C 加入 EEGNet。阶段 D 加入 Light Transformer，在全部 9 名受试者上比较四种模型的跨 Session 测试结果。实验路线见 [PROJECT_PLAN.md](PROJECT_PLAN.md)，统一参数见 [configs/experiment.yaml](configs/experiment.yaml)。
 
 ## 环境与运行
 
@@ -252,3 +252,80 @@ EEGNet 在 Subject 3 和 9 上的 Accuracy 与 Macro-F1 均超过两条 CSP 基�
 Refit 单独使用时，Subject 2、4 和 9 的两项指标有所提升，九人均值均下降。在 Z-score 基础上加入 Refit 后，平均 Accuracy 和 Macro-F1 又分别下降 0.66 和 2.71 个百分点。固定 Epoch 数时，每轮的梯度更新次数随训练集规模从 8 批增至 9 批，Refit 的差异包含样本数和更新次数的共同变化。
 
 Z-score 组选轮阶段有 8 人触发早停。Subject 1 从最佳第 11 轮到停止的第 26 轮，训练 Loss 从 0.959 降至 0.646，验证 Loss 从 1.341 升至 1.434，仍有过拟合迹象。Subject 3 在 Z-score 组把 288 个测试试次全部预测成左手，Accuracy 为 25.00%，Macro-F1 为 10.00%。检查中未出现 NaN、Inf 或失败的参数更新。以上观察来自单一种子和同一测试 Session。
+
+## 阶段 D：轻量 Transformer
+
+Light Transformer 借鉴 EEG-Deformer 的卷积与 Transformer 组合思路。课程实现采用两层卷积、固定长度的时间 token 和原生 PyTorch Encoder。卷积先学习局部波形和电极组合，池化将注意力序列从 1,000 个采样点缩短到 40 个 token。卷积中的时间核和池化窗口均为 25 个采样点，对应 100 ms。 [模型定义](src/models/light_transformer.py) · [实验配置](configs/experiment.yaml)
+
+| 步骤 | 设置 | 输出形状 |
+| --- | --- | --- |
+| 输入 | 22 通道，250 Hz，V 转 µV 后使用 `float32` | `(B, 22, 1000)` |
+| 时间卷积 | 16 个 `1 × 25` 卷积核，同长填充，BatchNorm | `(B, 16, 22, 1000)` |
+| 逐深度空间卷积 | `22 × 1` 卷积核，每个时间滤波器对应 2 个空间滤波器，BatchNorm 和 ELU | `(B, 32, 1, 1000)` |
+| 时间池化和投影 | 平均池化步长 25，映射至 64 维，加可学习位置编码和 Dropout | `(B, 40, 64)` |
+| Transformer Encoder | 2 层，4 个注意力头，前馈层维度 128，GELU，Pre-LayerNorm | `(B, 40, 64)` |
+| 分类 | 沿 token 维平均池化，线性层输出四类 logits | `(B, 4)` |
+
+模型有 **73,204** 个可训练参数，位置编码和 Encoder 使用 `0.2` 的 Dropout。每名受试者独立用种子 `42` 初始化模型和批次洗牌，复用阶段 A 的 `load_subject()`、`get_split_indices()`、8–30 Hz FIR 和 cue 后 `[0, 4)` 秒窗口。脚本逐人核对试次索引、ID 和标签。µV 单位转换沿用原始 EEGNet，BatchNorm 的统计量由训练批次更新。
+
+共用阶段 C 的 DataLoader、PyTorch 训练循环和早停逻辑。用 `0train` 中的 230 个试次训练，Adam 学习率 `0.001`，batch size `32`，最多 `100` 轮，损失为交叉熵。按 58 个验证试次上的最低 Loss 选 checkpoint，同值保留较早轮次，连续 15 轮无改善则停止。恢复 checkpoint 后构建测试 DataLoader，评估 `1test` 的 288 个试次，Refit 关闭。 [训练入口](src/train_transformer.py) · [共享训练逻辑](src/torch_training.py) · [固定试次清单](results/trial_splits.csv)
+
+### 复现命令
+
+沿用仓库根目录的 Python 3.12 环境和 `requirements.txt`，再安装对应设备的 PyTorch。正式运行使用 Linux x86_64、Python `3.12.3`、RTX 4090、驱动 `580.159.03`、PyTorch `2.13.0+cu130`、CUDA `13.0` 和 cuDNN `9.20.0`。运行启用 PyTorch 确定性算法。MOABB 1.7.2 沿用阶段 A 记录的电极模板，加载时会出现 `standard_1005` 弃用提示。
+
+```bash
+python -m pip install --index-url https://download.pytorch.org/whl/cu130 'torch==2.13.0+cu130'
+
+# Subject 1，默认输出到 results/transformer/subject_1/
+.venv/bin/python -m src.train_transformer --subjects 1 --device cuda
+
+# 全部 9 名受试者，默认输出到 results/transformer/
+.venv/bin/python -m src.train_transformer --device cuda
+```
+
+可以用 `--device cpu` 在 CPU 上运行，省略设备时自动选择。用 `--config` 指定配置、`--data-dir` 指定数据缓存、`--output-dir` 指定输出目录。实际运行先把 Subject 1 的完整验收输出写入单独的临时目录，再用同一配置从头训练 9 名受试者。 [正式运行日志](results/transformer/logs/transformer_run.json)
+
+### 阶段 D 输出
+
+- [逐人指标](results/transformer/transformer_metrics.csv) · [模型汇总](results/transformer/transformer_summary.csv) · [四模型逐人指标](results/transformer/four_model_metrics.csv) · [四模型汇总](results/transformer/four_model_summary.csv) · [参数量与耗时](results/transformer/transformer_runtime.csv)
+- `LightTransformer_s*.csv` 记录 2,592 个测试试次的 `trial_id`、`y_true` 和 `y_pred`。逐轮 CSV 保存训练和验证的 Loss、Accuracy，运行日志保存四类混淆矩阵、环境和首批梯度及更新检查。最佳 checkpoint 保存为 `results/transformer/models/LightTransformer_s*.pt`，由 `.gitignore` 排除。 [预测目录](results/transformer/predictions/) · [日志目录](results/transformer/logs/)
+- [Subject 1 训练曲线](results/transformer/figures/transformer_training_s1.png) · [Subject 1 测试混淆矩阵](results/transformer/figures/transformer_confusion_s1.png) · [四模型 Accuracy 对比](results/transformer/figures/four_model_accuracy.png) · [四模型 Macro-F1 对比](results/transformer/figures/four_model_macro_f1.png)
+
+### 阶段 D 实测结果
+
+| Subject | 测试 Accuracy | 测试 Macro-F1 | 最佳轮次 / 训练轮次 | 训练阶段耗时（秒） |
+| ---: | ---: | ---: | ---: | ---: |
+| 1 | 60.07% | 57.81% | 12 / 27 | 3.41 |
+| 2 | 40.28% | 40.56% | 22 / 37 | 4.33 |
+| 3 | 72.92% | 70.24% | 26 / 41 | 4.68 |
+| 4 | 42.01% | 34.58% | 12 / 27 | 3.01 |
+| 5 | 36.81% | 31.77% | 23 / 38 | 4.20 |
+| 6 | 36.81% | 37.40% | 12 / 27 | 3.01 |
+| 7 | 47.92% | 45.57% | 19 / 34 | 3.82 |
+| 8 | 64.93% | 64.79% | 17 / 32 | 3.57 |
+| 9 | 60.42% | 58.33% | 12 / 27 | 2.99 |
+
+四个模型使用相同的 9 名受试者和逐人测试试次。EEGNet 一行来自阶段 C 原始 Baseline。受试者等权，均值用百分比表示，标准差用百分点表示（`ddof=0`）。 [阶段 C 原始比较数据](results/model_metrics.csv)
+
+| 模型 | Accuracy（均值 ± 标准差） | Macro-F1（均值 ± 标准差） |
+| --- | ---: | ---: |
+| CSP + LDA | 60.57 ± 12.57 | 57.29 ± 13.85 |
+| CSP + SVM | 54.24 ± 12.27 | 50.40 ± 14.57 |
+| 原始 EEGNet | 44.79 ± 21.35 | 41.31 ± 23.59 |
+| Light Transformer | 51.35 ± 12.70 | 49.01 ± 13.28 |
+
+Light Transformer 相较原始 EEGNet 的平均 Accuracy 和 Macro-F1 分别提高 **6.56** 和 **7.69** 个百分点，两项都提升的受试者有 5 名。它在 Subject 3 上超过两条 CSP 基线，但平均 Accuracy 分别落后 LDA 和 SVM 9.22、2.89 个百分点，Macro-F1 分别落后 8.28、1.39 个百分点。CSP 的空间方差特征在这组小样本跨 Session 比较中整体得分更高，其最终拟合使用完整 `0train` 的 288 个试次。两种深度模型各用 230 个训练试次更新权重。
+
+Transformer 的 Accuracy 从 36.81% 到 72.92%，受试者间的标准差比原始 EEGNet 小。9 人均触发早停。Subject 1 从最佳第 12 轮到停止的第 27 轮，训练 Loss 由 0.751 降至 0.391，验证 Loss 由 0.868 升至 0.994，符合过拟合迹象。跨 Session 测试中，72 个双脚试次有 48 个被判为舌头。这些观察来自每人 230 个训练试次、一个固定种子和一个测试 Session，无法单独量化样本量和 Session 变化各自的影响。
+
+### 参数量与耗时
+
+| 模型 | 可训练参数量 | 平均训练轮次 | 平均训练阶段（秒/人） | 平均端到端（秒/人） |
+| --- | ---: | ---: | ---: | ---: |
+| 原始 EEGNet | 3,444 | 50.22 | — | 9.82 |
+| Light Transformer | 73,204 | 32.22 | 3.67 | 9.08 |
+
+两次正式实验均使用 RTX 4090。Transformer 参数量约为 EEGNet 的 21.3 倍，实测训练阶段合计 33.02 秒，端到端平均耗时少 0.74 秒，平均训练轮次也更少。训练阶段包含训练和验证循环及 checkpoint 读写。端到端从逐人加载数据计至测试、日志及示例绘图完成。原始 EEGNet 日志只提供端到端时间，因此耗时比较采用该口径。 [耗时对比](results/transformer/transformer_runtime.csv) · [原始 EEGNet 运行日志](results/logs/eegnet_run.json)
+
+CUDA 首批检查验证了 `(32, 22, 1000) → (32, 4)`、有限的交叉熵和梯度，以及 Adam 参数更新。CPU 单批也通过前向、反向和参数更新检查。Subject 1 两次运行的逐轮指标、checkpoint 张量和预测完全一致。正式九人实验从全部 2,592 个预测重算 Accuracy、Macro-F1 和混淆矩阵，与保存的指标和日志一致。

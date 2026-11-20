@@ -1,0 +1,2 @@
+model,n_subjects,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std
+LightTransformer,9,0.5135030864197532,0.12703509301263627,0.4900690178243878,0.13281486887577124

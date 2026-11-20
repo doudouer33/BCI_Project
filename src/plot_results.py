@@ -125,8 +125,13 @@ def plot_test_confusions(subject, matrices, class_order, path):
 
 
 def plot_eegnet_training(subject, history, best_epoch, figure_dir):
+    plot_training_curves(subject, "EEGNet", history, best_epoch,
+                         figure_dir / f"eegnet_training_s{subject}.png")
+
+
+def plot_training_curves(subject, model, history, best_epoch, path):
     fig, axes = plt.subplots(1, 2, figsize=(10, 4), layout="constrained")
-    fig.suptitle(f"Subject {subject} · EEGNet training")
+    fig.suptitle(f"Subject {subject} · {model} training")
     for ax, metric, label in zip(axes, ("loss", "accuracy"), ("Cross-entropy loss", "Accuracy")):
         for split, name, color in zip(("train", "val"), ("Train", "Validation"), COLORS):
             ax.plot(history["epoch"], history[f"{split}_{metric}"], label=name, color=color)
@@ -136,24 +141,25 @@ def plot_eegnet_training(subject, history, best_epoch, figure_dir):
         ax.legend(frameon=False)
     axes[1].set_ylim(0, 1)
     axes[1].yaxis.set_major_formatter(PercentFormatter(xmax=1))
-    fig.savefig(figure_dir / f"eegnet_training_s{subject}.png", dpi=150)
+    fig.savefig(path, dpi=150)
     plt.close(fig)
 
 
-def plot_model_comparison(metrics, figure_dir):
-    models = ["CSP_LDA", "CSP_SVM", "EEGNet"]
+def plot_model_comparison(metrics, figure_dir, models=("CSP_LDA", "CSP_SVM", "EEGNet"),
+                          prefix="model"):
     for metric, label in (("accuracy", "Accuracy"), ("macro_f1", "Macro-F1")):
         scores = metrics.pivot(index="subject", columns="model", values=metric)
         positions = np.arange(len(scores))
-        width = 0.25
+        width = 0.75 / len(models)
+        offsets = (np.arange(len(models)) - (len(models) - 1) / 2) * width
         fig, ax = plt.subplots(figsize=(9, 4.5), layout="constrained")
-        for model, offset, color in zip(models, (-width, 0, width), COLORS):
+        for model, offset, color in zip(models, offsets, COLORS):
             ax.bar(positions + offset, scores[model], width, label=model.replace("_", " + "), color=color)
         ax.set(title=f"Cross-session test {label} by subject", xlabel="Subject", ylabel=label,
                xticks=positions, xticklabels=scores.index, ylim=(0, 1))
         ax.yaxis.set_major_formatter(PercentFormatter(xmax=1))
-        ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncols=3, frameon=False)
+        ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncols=len(models), frameon=False)
         ax.grid(axis="y", alpha=0.22)
         ax.set_axisbelow(True)
-        fig.savefig(figure_dir / f"model_{metric}.png", dpi=150)
+        fig.savefig(figure_dir / f"{prefix}_{metric}.png", dpi=150)
         plt.close(fig)

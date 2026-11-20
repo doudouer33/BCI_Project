@@ -1,0 +1,10 @@
+subject,model,train_session,test_session,accuracy,macro_f1,seed,config_id,best_epoch,epochs_run,n_parameters,train_seconds,device,hardware,elapsed_seconds
+1,LightTransformer,0train,1test,0.6006944444444444,0.5781156286511882,42,configs/experiment.yaml,12,27,73204,3.41,cuda,NVIDIA GeForce RTX 4090,8.25
+2,LightTransformer,0train,1test,0.4027777777777778,0.4056312620125393,42,configs/experiment.yaml,22,37,73204,4.33,cuda,NVIDIA GeForce RTX 4090,9.82
+3,LightTransformer,0train,1test,0.7291666666666666,0.7024089722794749,42,configs/experiment.yaml,26,41,73204,4.68,cuda,NVIDIA GeForce RTX 4090,10.22
+4,LightTransformer,0train,1test,0.4201388888888889,0.34580628973692557,42,configs/experiment.yaml,12,27,73204,3.01,cuda,NVIDIA GeForce RTX 4090,8.25
+5,LightTransformer,0train,1test,0.3680555555555556,0.3176787346358875,42,configs/experiment.yaml,23,38,73204,4.2,cuda,NVIDIA GeForce RTX 4090,9.67
+6,LightTransformer,0train,1test,0.3680555555555556,0.3740365457783565,42,configs/experiment.yaml,12,27,73204,3.01,cuda,NVIDIA GeForce RTX 4090,8.55
+7,LightTransformer,0train,1test,0.4791666666666667,0.4557101054372833,42,configs/experiment.yaml,19,34,73204,3.82,cuda,NVIDIA GeForce RTX 4090,9.26
+8,LightTransformer,0train,1test,0.6493055555555556,0.6479370631925031,42,configs/experiment.yaml,17,32,73204,3.57,cuda,NVIDIA GeForce RTX 4090,9.18
+9,LightTransformer,0train,1test,0.6041666666666666,0.5832965586953316,42,configs/experiment.yaml,12,27,73204,2.99,cuda,NVIDIA GeForce RTX 4090,8.53

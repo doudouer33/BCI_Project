@@ -22,7 +22,7 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from src.load_data import ROOT, get_split_indices, load_config, load_subject
 from src.plot_results import COLORS, PercentFormatter, plot_eegnet_training, plt
-from src.train_eegnet import VOLTS_TO_MICROVOLTS, fit, make_loader, run_epoch
+from src.torch_training import VOLTS_TO_MICROVOLTS, fit, make_loader, run_epoch
 
 
 RESULTS = ROOT / "results"
@@ -202,7 +202,9 @@ def main():
     if not np.isfinite(epsilon_uv) or epsilon_uv <= 0:
         parser.error("zscore_epsilon_uv must be finite and positive")
     baseline_log = json.loads((RESULTS / "logs/eegnet_run.json").read_text(encoding="utf-8"))
-    if config != baseline_log["config"]:
+    baseline_config = baseline_log["config"]
+    common_config = {key: value for key, value in config.items() if key != "transformer"}
+    if common_config != {key: value for key, value in baseline_config.items() if key != "transformer"}:
         parser.error("Shared experiment configuration must match the saved EEGNet baseline")
     subjects = sorted(args.subjects or config["subjects"])
     if len(subjects) != len(set(subjects)) or not set(subjects) <= set(config["subjects"]):

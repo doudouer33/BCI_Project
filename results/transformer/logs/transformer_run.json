@@ -1,0 +1,956 @@
+{
+  "command": ".venv/bin/python -m src.train_transformer --device cuda",
+  "config": {
+    "dataset": "BNCI2014_001",
+    "data_dir": "data/raw",
+    "subjects": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "label_mapping": {
+      "left_hand": 0,
+      "right_hand": 1,
+      "feet": 2,
+      "tongue": 3
+    },
+    "sfreq": 250.0,
+    "fmin": 8.0,
+    "fmax": 30.0,
+    "filter": {
+      "method": "fir",
+      "phase": "zero",
+      "fir_window": "hamming",
+      "fir_design": "firwin",
+      "l_trans_bandwidth": 2.0,
+      "h_trans_bandwidth": 7.5,
+      "pad": "reflect_limited"
+    },
+    "cue_offset_from_trial_start_s": 2.0,
+    "tmin": 0.0,
+    "tmax": 4.0,
+    "train_session": "0train",
+    "test_session": "1test",
+    "val_ratio": 0.2,
+    "random_seed": 42,
+    "csp": {
+      "n_components": [
+        8,
+        4,
+        12
+      ],
+      "svm_kernels": [
+        "linear",
+        "rbf"
+      ],
+      "svm_c": [
+        1.0,
+        10.0
+      ]
+    },
+    "eegnet": {
+      "batch_size": 32,
+      "learning_rate": 0.001,
+      "max_epochs": 100,
+      "patience": 15
+    },
+    "transformer": {
+      "batch_size": 32,
+      "learning_rate": 0.001,
+      "max_epochs": 100,
+      "patience": 15,
+      "temporal_filters": 16,
+      "temporal_kernel": 25,
+      "spatial_multiplier": 2,
+      "patch_size": 25,
+      "d_model": 64,
+      "n_heads": 4,
+      "n_layers": 2,
+      "feedforward_dim": 128,
+      "dropout": 0.2
+    }
+  },
+  "subjects": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "split_manifest": "results/trial_splits.csv",
+  "baseline_metrics": "results/model_metrics.csv",
+  "eegnet_run": "results/logs/eegnet_run.json",
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.13.0+cu130",
+    "moabb": "1.7.2",
+    "mne": "1.13.2",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "pyyaml": "6.0.3"
+  },
+  "platform": "Linux-6.17.0-35-generic-x86_64-with-glibc2.39",
+  "device": "cuda",
+  "hardware": "NVIDIA GeForce RTX 4090",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "cuda": "13.0",
+  "cudnn": 92000,
+  "deterministic_algorithms": true,
+  "torch_cpu_threads": 4,
+  "volts_to_microvolts": 1000000.0,
+  "optimizer": "Adam",
+  "loss": "CrossEntropyLoss",
+  "checkpoint_selection": "lowest validation loss, earliest epoch on ties",
+  "refit_on_train_plus_val": false,
+  "train_seconds_scope": "training and validation epochs, checkpoint writes and best checkpoint restore",
+  "elapsed_seconds_scope": "subject data loading through test evaluation, logging and example plots",
+  "confusion_matrix_class_order": [
+    "left_hand",
+    "right_hand",
+    "feet",
+    "tongue"
+  ],
+  "results": [
+    {
+      "subject": 1,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.6006944444444444,
+      "macro_f1": 0.5781156286511882,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 12,
+      "epochs_run": 27,
+      "n_parameters": 73204,
+      "train_seconds": 3.41,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 8.25,
+      "best_val_loss": 0.8683260555925041,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.4043924808502197,
+        "temporal_weight_grad_norm": 0.13519592583179474,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s1.pt",
+      "epoch_log": "logs/LightTransformer_s1_epochs.csv",
+      "predictions": "predictions/LightTransformer_s1.csv",
+      "confusion_matrix": [
+        [
+          43,
+          18,
+          3,
+          8
+        ],
+        [
+          21,
+          48,
+          3,
+          0
+        ],
+        [
+          5,
+          1,
+          18,
+          48
+        ],
+        [
+          1,
+          0,
+          7,
+          64
+        ]
+      ]
+    },
+    {
+      "subject": 2,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.4027777777777778,
+      "macro_f1": 0.4056312620125393,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 22,
+      "epochs_run": 37,
+      "n_parameters": 73204,
+      "train_seconds": 4.33,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 9.82,
+      "best_val_loss": 1.016027516332166,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.3968478441238403,
+        "temporal_weight_grad_norm": 0.14908947050571442,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s2.pt",
+      "epoch_log": "logs/LightTransformer_s2_epochs.csv",
+      "predictions": "predictions/LightTransformer_s2.csv",
+      "confusion_matrix": [
+        [
+          20,
+          23,
+          13,
+          16
+        ],
+        [
+          20,
+          25,
+          7,
+          20
+        ],
+        [
+          12,
+          17,
+          42,
+          1
+        ],
+        [
+          15,
+          22,
+          6,
+          29
+        ]
+      ]
+    },
+    {
+      "subject": 3,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.7291666666666666,
+      "macro_f1": 0.7024089722794749,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 26,
+      "epochs_run": 41,
+      "n_parameters": 73204,
+      "train_seconds": 4.68,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 10.22,
+      "best_val_loss": 0.5896491346688106,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.4063383340835571,
+        "temporal_weight_grad_norm": 0.17270594835281372,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s3.pt",
+      "epoch_log": "logs/LightTransformer_s3_epochs.csv",
+      "predictions": "predictions/LightTransformer_s3.csv",
+      "confusion_matrix": [
+        [
+          58,
+          8,
+          4,
+          2
+        ],
+        [
+          2,
+          69,
+          0,
+          1
+        ],
+        [
+          5,
+          11,
+          20,
+          36
+        ],
+        [
+          0,
+          3,
+          6,
+          63
+        ]
+      ]
+    },
+    {
+      "subject": 4,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.4201388888888889,
+      "macro_f1": 0.34580628973692557,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 12,
+      "epochs_run": 27,
+      "n_parameters": 73204,
+      "train_seconds": 3.01,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 8.25,
+      "best_val_loss": 1.2724406801421067,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.4709392786026,
+        "temporal_weight_grad_norm": 0.10005463659763336,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s4.pt",
+      "epoch_log": "logs/LightTransformer_s4_epochs.csv",
+      "predictions": "predictions/LightTransformer_s4.csv",
+      "confusion_matrix": [
+        [
+          46,
+          11,
+          15,
+          0
+        ],
+        [
+          34,
+          19,
+          19,
+          0
+        ],
+        [
+          13,
+          3,
+          56,
+          0
+        ],
+        [
+          8,
+          6,
+          58,
+          0
+        ]
+      ]
+    },
+    {
+      "subject": 5,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.3680555555555556,
+      "macro_f1": 0.3176787346358875,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 23,
+      "epochs_run": 38,
+      "n_parameters": 73204,
+      "train_seconds": 4.2,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 9.67,
+      "best_val_loss": 1.2584136436725486,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.4148681163787842,
+        "temporal_weight_grad_norm": 0.0818038210272789,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s5.pt",
+      "epoch_log": "logs/LightTransformer_s5_epochs.csv",
+      "predictions": "predictions/LightTransformer_s5.csv",
+      "confusion_matrix": [
+        [
+          9,
+          32,
+          26,
+          5
+        ],
+        [
+          2,
+          64,
+          5,
+          1
+        ],
+        [
+          2,
+          35,
+          19,
+          16
+        ],
+        [
+          1,
+          34,
+          23,
+          14
+        ]
+      ]
+    },
+    {
+      "subject": 6,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.3680555555555556,
+      "macro_f1": 0.3740365457783565,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 12,
+      "epochs_run": 27,
+      "n_parameters": 73204,
+      "train_seconds": 3.01,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 8.55,
+      "best_val_loss": 1.2858776224070583,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.4102606773376465,
+        "temporal_weight_grad_norm": 0.09111124277114868,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s6.pt",
+      "epoch_log": "logs/LightTransformer_s6_epochs.csv",
+      "predictions": "predictions/LightTransformer_s6.csv",
+      "confusion_matrix": [
+        [
+          25,
+          28,
+          7,
+          12
+        ],
+        [
+          16,
+          30,
+          8,
+          18
+        ],
+        [
+          3,
+          17,
+          28,
+          24
+        ],
+        [
+          10,
+          30,
+          9,
+          23
+        ]
+      ]
+    },
+    {
+      "subject": 7,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.4791666666666667,
+      "macro_f1": 0.4557101054372833,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 19,
+      "epochs_run": 34,
+      "n_parameters": 73204,
+      "train_seconds": 3.82,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 9.26,
+      "best_val_loss": 0.9374455419080011,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.4158411026000977,
+        "temporal_weight_grad_norm": 0.08331730216741562,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s7.pt",
+      "epoch_log": "logs/LightTransformer_s7_epochs.csv",
+      "predictions": "predictions/LightTransformer_s7.csv",
+      "confusion_matrix": [
+        [
+          18,
+          19,
+          22,
+          13
+        ],
+        [
+          22,
+          22,
+          13,
+          15
+        ],
+        [
+          2,
+          3,
+          42,
+          25
+        ],
+        [
+          0,
+          3,
+          13,
+          56
+        ]
+      ]
+    },
+    {
+      "subject": 8,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.6493055555555556,
+      "macro_f1": 0.6479370631925031,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 17,
+      "epochs_run": 32,
+      "n_parameters": 73204,
+      "train_seconds": 3.57,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 9.18,
+      "best_val_loss": 0.7486278928559402,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.4132778644561768,
+        "temporal_weight_grad_norm": 0.14835821092128754,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s8.pt",
+      "epoch_log": "logs/LightTransformer_s8_epochs.csv",
+      "predictions": "predictions/LightTransformer_s8.csv",
+      "confusion_matrix": [
+        [
+          57,
+          1,
+          13,
+          1
+        ],
+        [
+          1,
+          53,
+          13,
+          5
+        ],
+        [
+          13,
+          12,
+          36,
+          11
+        ],
+        [
+          8,
+          10,
+          13,
+          41
+        ]
+      ]
+    },
+    {
+      "subject": 9,
+      "model": "LightTransformer",
+      "train_session": "0train",
+      "test_session": "1test",
+      "accuracy": 0.6041666666666666,
+      "macro_f1": 0.5832965586953316,
+      "seed": 42,
+      "config_id": "configs/experiment.yaml",
+      "best_epoch": 12,
+      "epochs_run": 27,
+      "n_parameters": 73204,
+      "train_seconds": 2.99,
+      "device": "cuda",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "elapsed_seconds": 8.53,
+      "best_val_loss": 0.7814219244595232,
+      "stopped_early": true,
+      "first_training_batch": {
+        "input_shape": [
+          32,
+          22,
+          1000
+        ],
+        "input_dtype": "torch.float32",
+        "target_shape": [
+          32
+        ],
+        "target_dtype": "torch.int64",
+        "logits_shape": [
+          32,
+          4
+        ],
+        "loss": 1.4126620292663574,
+        "temporal_weight_grad_norm": 0.10857439786195755,
+        "optimizer_update": true
+      },
+      "input_shape": [
+        576,
+        22,
+        1000
+      ],
+      "model_args": {
+        "n_chans": 22,
+        "n_times": 1000,
+        "n_outputs": 4,
+        "temporal_filters": 16,
+        "temporal_kernel": 25,
+        "spatial_multiplier": 2,
+        "patch_size": 25,
+        "d_model": 64,
+        "n_heads": 4,
+        "n_layers": 2,
+        "feedforward_dim": 128,
+        "dropout": 0.2
+      },
+      "tokens_per_trial": 40,
+      "split_counts": {
+        "train": 230,
+        "val": 58,
+        "test": 288
+      },
+      "checkpoint": "models/LightTransformer_s9.pt",
+      "epoch_log": "logs/LightTransformer_s9_epochs.csv",
+      "predictions": "predictions/LightTransformer_s9.csv",
+      "confusion_matrix": [
+        [
+          50,
+          14,
+          7,
+          1
+        ],
+        [
+          3,
+          17,
+          22,
+          30
+        ],
+        [
+          1,
+          4,
+          38,
+          29
+        ],
+        [
+          0,
+          0,
+          3,
+          69
+        ]
+      ]
+    }
+  ]
+}
