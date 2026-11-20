@@ -103,15 +103,57 @@ def plot_baseline_accuracy(metrics, figure_dir):
 
 
 def plot_baseline_confusion(subject, matrices, class_order, figure_dir):
+    plot_test_confusions(subject, matrices, class_order, figure_dir / f"csp_confusion_s{subject}.png")
+
+
+def plot_test_confusions(subject, matrices, class_order, path):
     labels = [CLASS_NAMES[name] for name in class_order]
     maximum = max(np.max(matrix) for matrix in matrices.values())
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4.5), layout="constrained")
-    fig.suptitle(f"Subject {subject} · Test confusion matrices")
+    count = len(matrices)
+    fig, axes = plt.subplots(1, count, figsize=(5 * count, 4.5), squeeze=False, layout="constrained")
+    axes = axes[0]
+    title = "Test confusion matrix" if count == 1 else "Test confusion matrices"
+    fig.suptitle(f"Subject {subject} · {title}")
     for ax, (model, matrix) in zip(axes, matrices.items()):
         display = ConfusionMatrixDisplay(np.asarray(matrix), display_labels=labels)
         display.plot(ax=ax, colorbar=False, cmap="Blues", values_format="d",
                      xticks_rotation=25, im_kw={"vmin": 0, "vmax": maximum})
         ax.set_title(model.replace("_", " + "))
     fig.colorbar(display.im_, ax=axes, label="Trials", shrink=0.8)
-    fig.savefig(figure_dir / f"csp_confusion_s{subject}.png", dpi=150)
+    fig.savefig(path, dpi=150)
     plt.close(fig)
+
+
+def plot_eegnet_training(subject, history, best_epoch, figure_dir):
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4), layout="constrained")
+    fig.suptitle(f"Subject {subject} · EEGNet training")
+    for ax, metric, label in zip(axes, ("loss", "accuracy"), ("Cross-entropy loss", "Accuracy")):
+        for split, name, color in zip(("train", "val"), ("Train", "Validation"), COLORS):
+            ax.plot(history["epoch"], history[f"{split}_{metric}"], label=name, color=color)
+        ax.axvline(best_epoch, color="#48515c", linestyle="--", label=f"Best epoch ({best_epoch})")
+        ax.set(xlabel="Epoch", ylabel=label)
+        ax.grid(alpha=0.22)
+        ax.legend(frameon=False)
+    axes[1].set_ylim(0, 1)
+    axes[1].yaxis.set_major_formatter(PercentFormatter(xmax=1))
+    fig.savefig(figure_dir / f"eegnet_training_s{subject}.png", dpi=150)
+    plt.close(fig)
+
+
+def plot_model_comparison(metrics, figure_dir):
+    models = ["CSP_LDA", "CSP_SVM", "EEGNet"]
+    for metric, label in (("accuracy", "Accuracy"), ("macro_f1", "Macro-F1")):
+        scores = metrics.pivot(index="subject", columns="model", values=metric)
+        positions = np.arange(len(scores))
+        width = 0.25
+        fig, ax = plt.subplots(figsize=(9, 4.5), layout="constrained")
+        for model, offset, color in zip(models, (-width, 0, width), COLORS):
+            ax.bar(positions + offset, scores[model], width, label=model.replace("_", " + "), color=color)
+        ax.set(title=f"Cross-session test {label} by subject", xlabel="Subject", ylabel=label,
+               xticks=positions, xticklabels=scores.index, ylim=(0, 1))
+        ax.yaxis.set_major_formatter(PercentFormatter(xmax=1))
+        ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncols=3, frameon=False)
+        ax.grid(axis="y", alpha=0.22)
+        ax.set_axisbelow(True)
+        fig.savefig(figure_dir / f"model_{metric}.png", dpi=150)
+        plt.close(fig)

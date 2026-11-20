@@ -1,0 +1,10 @@
+subject,model,train_session,test_session,accuracy,macro_f1,seed,config_id
+1,EEGNet,0train,1test,0.4097222222222222,0.34650586946602124,42,configs/experiment.yaml
+2,EEGNet,0train,1test,0.2604166666666667,0.17804875718843735,42,configs/experiment.yaml
+3,EEGNet,0train,1test,0.8784722222222222,0.876377644480902,42,configs/experiment.yaml
+4,EEGNet,0train,1test,0.3854166666666667,0.3803460507663933,42,configs/experiment.yaml
+5,EEGNet,0train,1test,0.2673611111111111,0.20109547083740634,42,configs/experiment.yaml
+6,EEGNet,0train,1test,0.3854166666666667,0.36889543137076086,42,configs/experiment.yaml
+7,EEGNet,0train,1test,0.3680555555555556,0.3514701986754967,42,configs/experiment.yaml
+8,EEGNet,0train,1test,0.2881944444444444,0.2275882154139855,42,configs/experiment.yaml
+9,EEGNet,0train,1test,0.7881944444444444,0.7879197716184951,42,configs/experiment.yaml

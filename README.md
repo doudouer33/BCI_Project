@@ -1,6 +1,6 @@
 # BCI Competition IV 2a 运动想象四分类
 
-阶段 A 提供 BNCI2014_001 的读取、预处理、固定划分和数据可视化。阶段 B 用同一协议实测 CSP + LDA 和 CSP + SVM 的 9 人基线。实验路线见 [PROJECT_PLAN.md](PROJECT_PLAN.md)，统一参数见 [configs/experiment.yaml](configs/experiment.yaml)。
+阶段 A 提供 BNCI2014_001 的读取、预处理、固定划分和数据可视化。阶段 B 用同一协议实测 CSP + LDA 和 CSP + SVM 的 9 人基线。阶段 C 加入 EEGNet，并比较三种模型的跨 Session 测试结果。实验路线见 [PROJECT_PLAN.md](PROJECT_PLAN.md)，统一参数见 [configs/experiment.yaml](configs/experiment.yaml)。
 
 ## 环境与运行
 
@@ -20,13 +20,7 @@ python -m src.load_data
 
 首次运行时，MOABB 从数据发布方下载 `.mat` 文件至 `data/raw/`，全量缓存约需 750 MiB。可用 `--data-dir /path/to/cache` 指定缓存位置，可用 `--output-dir /path/to/results` 指定输出位置。`requirements.txt` 中锁定的 MNE 1.13.2 会为 MOABB 使用的 `standard_1005` 电极模板发出弃用提示，实测读取和波形处理均可完成。
 
-`requirements.txt` 覆盖数据流程和 CSP 基线。按规划一并准备的深度学习环境已在 Linux x86_64 CPU 上验证导入，版本为 PyTorch `2.11.0+cpu`、TorchAudio `2.11.0+cpu` 和 Braindecode `2.0.0`。需要复现这部分环境时可执行：
-
-```bash
-python -m pip install -c requirements.txt \
-  --extra-index-url https://download-r2.pytorch.org/whl/cpu \
-  'torch==2.11.0+cpu' 'torchaudio==2.11.0+cpu' 'braindecode==2.0.0'
-```
+`requirements.txt` 覆盖数据流程和 CSP 基线。EEGNet 的额外依赖和安装命令见[阶段 C](#阶段-ceegnet)。
 
 ## 统一数据协议
 
@@ -130,3 +124,73 @@ python -m src.train_csp --config configs/experiment.yaml --output-dir results
 | CSP + SVM | 54.24 ± 12.27 | 50.40 ± 14.57 |
 
 在本次固定协议下，LDA 在全部 9 名受试者上的 Accuracy 和 Macro-F1 都高于 SVM，两项均值分别高出 6.33 和 6.89 个百分点。两模型在 Subject 8 上准确率最高，在 Subject 5 上最低。Subject 1 的矩阵显示，LDA 和 SVM 分别有 31 和 29 个右手试次被判为左手，分别有 25 和 44 个双脚试次被判为舌头。
+
+## 阶段 C：EEGNet
+
+EEGNet 是轻量的 EEG 卷积网络。时间卷积先提取波形特征，逐深度空间卷积学习 22 个 EEG 通道的组合，可分离卷积进一步处理特征。实现使用 `braindecode.models.EEGNet` 2.0.0，启用该版本推荐的带最大范数约束的分类层，其余网络参数使用默认值。模型接收 `(batch, 22, 1000)` 的 `float32` 张量，输出 `(batch, 4)` logits。标签为 `int64`，交叉熵直接接收 logits。训练、验证和测试统一将阶段 A 的 V 值乘 `1e6` 转成 µV，无需拟合标准化统计量。 [Braindecode EEGNet 文档](https://braindecode.org/stable/generated/braindecode.models.EEGNet.html)
+
+每名受试者用种子 `42` 独立初始化模型，以 DataLoader 打乱 230 个训练试次，使用 Adam 更新参数。Batch size 为 `32`，学习率为 `0.001`，最多训练 `100` 轮。每轮记录训练和验证的交叉熵与 Accuracy，以 58 个验证试次上的最低交叉熵保存最佳 checkpoint，同分时保留较早轮次。验证 Loss 连续 `15` 轮未下降则早停。最终恢复最佳 checkpoint，再构建 `1test` 的 DataLoader 并评估全场 288 个试次。作为对照，阶段 B 选定超参数后使用完整 `0train` 重拟合，EEGNet 保留由验证集选定的模型，其梯度更新只使用 230 个训练试次。
+
+### 复现命令
+
+沿用上文的 Python 3.12 环境和 `requirements.txt`。使用 GPU 时安装 CUDA 13.0 构建，然后安装 Braindecode。TorchAudio 2.11 支持 PyTorch 2.11 及后续版本。 [PyTorch 安装说明](https://pytorch.org/get-started/previous-versions/#v2130) · [TorchAudio 兼容性说明](https://docs.pytorch.org/audio/main/installation.html#compatibility-matrix)
+
+```bash
+python -m pip install --index-url https://download.pytorch.org/whl/cu130 \
+  'torch==2.13.0+cu130' 'torchaudio==2.11.0+cu130'
+python -m pip install -c requirements.txt 'braindecode==2.0.0'
+```
+
+纯 CPU 环境使用 CPU 构建。
+
+```bash
+python -m pip install --index-url https://download.pytorch.org/whl/cpu \
+  'torch==2.11.0+cpu' 'torchaudio==2.11.0+cpu'
+python -m pip install -c requirements.txt 'braindecode==2.0.0'
+```
+
+```bash
+# Subject 1，默认写入 results/subject_1
+python -m src.train_eegnet --subjects 1
+
+# 全部 9 名受试者，默认写入 results/
+python -m src.train_eegnet
+```
+
+脚本默认在 PyTorch 可用时选用 CUDA，否则使用 CPU。可以用 `--device cpu` 或 `--device cuda` 显式选择。`--config`、`--data-dir` 和 `--output-dir` 可指定配置、数据缓存和输出路径。脚本固定训练与批次洗牌的种子，并启用 PyTorch 的确定性算法。
+
+实测环境为 Linux x86_64、Python `3.12.3`。Subject 1 使用 `--subjects 1 --device cpu` 在 CPU 版 PyTorch 和 TorchAudio `2.11.0+cpu` 上先通过完整流程。正式九人实验使用 `--device cuda`，环境为 RTX 4090、驱动 `580.159.03`、CUDA `13.0`、cuDNN `9.20.0`、PyTorch `2.13.0+cu130`、TorchAudio `2.11.0+cu130` 和 Braindecode `2.0.0`。MOABB 1.7.2 加载电极模板时会出现阶段 A 已记录的 `standard_1005` 弃用提示。
+
+### 阶段 C 输出
+
+- [EEGNet 逐人指标](results/eegnet_metrics.csv)、[三模型逐人指标](results/model_metrics.csv)和[三模型汇总](results/model_summary.csv)。汇总按受试者等权计算，用总体标准差 `ddof=0`。
+- `EEGNet_s1.csv` 至 `EEGNet_s9.csv` 保存 2,592 个测试试次的 `trial_id`、`y_true`、`y_pred`。[预测目录](results/predictions/)
+- `EEGNet_s*_epochs.csv` 保存每轮训练和验证指标。`eegnet_run.json` 保存运行环境、配置、首批张量与梯度检查、最佳 Epoch、早停状态和逐人混淆矩阵。[日志目录](results/logs/) · [运行日志](results/logs/eegnet_run.json)
+- `results/models/EEGNet_s*.pt` 保存最佳模型的 `state_dict`，由现有 `.gitignore` 排除。
+- [Subject 1 训练曲线](results/figures/eegnet_training_s1.png) · [Subject 1 测试混淆矩阵](results/figures/eegnet_confusion_s1.png) · [三模型 Accuracy 对比](results/figures/model_accuracy.png) · [三模型 Macro-F1 对比](results/figures/model_macro_f1.png)
+
+### 阶段 C 实测结果
+
+| Subject | Accuracy | Macro-F1 | 最佳轮次 / 训练轮次 |
+| ---: | ---: | ---: | ---: |
+| 1 | 40.97% | 34.65% | 13 / 28 |
+| 2 | 26.04% | 17.80% | 12 / 27 |
+| 3 | 87.85% | 87.64% | 94 / 100 |
+| 4 | 38.54% | 38.03% | 27 / 42 |
+| 5 | 26.74% | 20.11% | 14 / 29 |
+| 6 | 38.54% | 36.89% | 52 / 67 |
+| 7 | 36.81% | 35.15% | 15 / 30 |
+| 8 | 28.82% | 22.76% | 14 / 29 |
+| 9 | 78.82% | 78.79% | 99 / 100 |
+
+均值以百分比表示，标准差以百分点表示。
+
+| 模型 | Accuracy（均值 ± 标准差） | Macro-F1（均值 ± 标准差） |
+| --- | ---: | ---: |
+| CSP + LDA | 60.57 ± 12.57 | 57.29 ± 13.85 |
+| CSP + SVM | 54.24 ± 12.27 | 50.40 ± 14.57 |
+| EEGNet | 44.79 ± 21.35 | 41.31 ± 23.59 |
+
+EEGNet 在 Subject 3 和 9 上的 Accuracy 与 Macro-F1 均超过两条 CSP 基线，在其余 7 人上均低于两条基线。其平均 Accuracy 分别比 CSP + LDA 和 CSP + SVM 低 15.78 和 9.45 个百分点，受试者之间的波动也更大。
+
+7 名受试者触发早停，Subject 3 和 9 达到 100 轮。Subject 1 从最佳轮次到停止时，训练 Loss 由 0.876 降至 0.618，验证 Loss 由 1.219 升至 1.336，呈现过拟合迹象。测试时有 63 个左手试次被判为右手，右手共占 183 个预测（63.54%），反映出该受试者的类别预测偏向。每人有限的训练样本与跨 Session 信号变化都可能影响泛化。

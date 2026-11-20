@@ -29,3 +29,8 @@ csp:
   n_components: [8, 4, 12]
   svm_kernels: [linear, rbf]
   svm_c: [1.0, 10.0]
+eegnet:
+  batch_size: 32
+  learning_rate: 0.001
+  max_epochs: 100
+  patience: 15
